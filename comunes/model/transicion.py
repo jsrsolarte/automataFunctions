@@ -1,5 +1,6 @@
 from typing import List
-from model.input import Input
+
+from comunes.model.input import Input
 
 
 class Transicion:

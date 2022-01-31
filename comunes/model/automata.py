@@ -1,8 +1,9 @@
 import json
 from typing import List
 
-from model.state import State
-from model.transicion import Transicion
+from comunes.model.state import State
+from comunes.model.transicion import Transicion
+
 
 
 class Automata:

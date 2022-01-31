@@ -1,8 +1,9 @@
 import pandas as pd
-from model.automata import Automata
-from model.input import Input
-from model.state import State
-from model.transicion import Transicion
+
+from comunes.model.automata import Automata
+from comunes.model.input import Input
+from comunes.model.state import State
+from comunes.model.transicion import Transicion
 
 
 def get_automata(df: pd.DataFrame) -> Automata:

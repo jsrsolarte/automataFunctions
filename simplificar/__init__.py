@@ -3,9 +3,9 @@ import logging
 
 import azure.functions as func
 from tabulate import tabulate
-from Utils.validations import validate_automata
+from comunes.services.automata_service import agrupar_semejantes, eliminar_extraños, get_automata, get_dataFrame_from_automata
 
-from services.automata_service import agrupar_semejantes, eliminar_extraños, get_automata, get_dataFrame_from_automata
+from comunes.utils.validations import validate_automata
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
