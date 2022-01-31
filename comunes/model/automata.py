@@ -5,7 +5,6 @@ from comunes.model.state import State
 from comunes.model.transicion import Transicion
 
 
-
 class Automata:
     type: int
     states: List[State]
@@ -19,7 +18,5 @@ class Automata:
         self.transicions = transicions
 
     def to_JSON(self) -> str:
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
-
-    
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)

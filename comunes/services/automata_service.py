@@ -1,8 +1,11 @@
+from typing import List
 import pandas as pd
 
 from comunes.model.automata import Automata
 from comunes.model.input import Input
+from comunes.model.recognize_row import RecognizeRow
 from comunes.model.state import State
+from comunes.model.step import Step
 from comunes.model.transicion import Transicion
 
 
@@ -39,7 +42,7 @@ def get_dataFrame_from_automata(automata: object) -> pd.DataFrame:
     return df
 
 
-def get_estado_inicial(df, estado_inicial=""):
+def get_estado_inicial(df: pd.DataFrame, estado_inicial: str = "") -> str:
     if estado_inicial == "":
         return df.index[0]
     else:
@@ -131,3 +134,18 @@ def getMinDF(particiones: list[list], dataFrame: pd.DataFrame) -> pd.DataFrame:
         a_series = pd.Series(lista_v, index=dataFrame.columns, name=new_estado)
         dataFrameF = dataFrameF.append(a_series, ignore_index=False)
     return dataFrameF
+
+
+def validar(df: pd.DataFrame, expresion: str) -> RecognizeRow:
+    oldState = get_estado_inicial(df)
+    steps = []
+
+    for l in expresion:
+        newState = df.loc[oldState, l]
+        print(f"{oldState} => {l} => {newState}")
+        step = Step(oldState, newState, l)
+        steps.append(step)
+        oldState = newState
+
+    accepted = df.loc[oldState, "R"] == "1"
+    return RecognizeRow(accepted, steps)
