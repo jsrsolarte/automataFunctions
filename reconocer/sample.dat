@@ -1,3 +1,147 @@
 {
-    "name": "Azure"
+	"type": 0,
+	"states": [
+		{
+			"name": "0",
+			"acceptance": false
+		},
+		{
+			"name": "1",
+			"acceptance": false
+		},
+		{
+			"name": "2",
+			"acceptance": false
+		},
+		{
+			"name": "3",
+			"acceptance": false
+		},
+		{
+			"name": "4",
+			"acceptance": true
+		},
+		{
+			"name": "5",
+			"acceptance": false
+		},
+		{
+			"name": "6",
+			"acceptance": true
+		},
+		{
+			"name": "7",
+			"acceptance": false
+		}
+	],
+	"inputs": [
+		"a",
+		"b"
+	],
+	"transicions": [
+		{
+			"state": "0",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "0"
+				},
+				{
+					"value": "b",
+					"to": "3"
+				}
+			]
+		},
+		{
+			"state": "1",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "2"
+				},
+				{
+					"value": "b",
+					"to": "5"
+				}
+			]
+		},
+		{
+			"state": "2",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "2"
+				},
+				{
+					"value": "b",
+					"to": "7"
+				}
+			]
+		},
+		{
+			"state": "3",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "6"
+				},
+				{
+					"value": "b",
+					"to": "7"
+				}
+			]
+		},
+		{
+			"state": "4",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "1"
+				},
+				{
+					"value": "b",
+					"to": "6"
+				}
+			]
+		},
+		{
+			"state": "5",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "6"
+				},
+				{
+					"value": "b",
+					"to": "5"
+				}
+			]
+		},
+		{
+			"state": "6",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "6"
+				},
+				{
+					"value": "b",
+					"to": "3"
+				}
+			]
+		},
+		{
+			"state": "7",
+			"inputs": [
+				{
+					"value": "a",
+					"to": "6"
+				},
+				{
+					"value": "b",
+					"to": "3"
+				}
+			]
+		}
+	]
 }
