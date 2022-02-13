@@ -3,7 +3,7 @@ name: Deploy Python project to function app
 on:
   push:
     branches:
-      - stage
+      - development
 
 env:
   AZURE_FUNCTIONAPP_NAME: Automata # set this to your application's name
