@@ -113,7 +113,7 @@ def agrupar_semejantes(dataFrame: pd.DataFrame) -> pd.DataFrame:
         division = dividir(particiones, dataFrame)
         finalizado = division[0]
         particiones = division[1]
-    return getMinDF(particiones, dataFrame)
+    return get_min_DF(particiones, dataFrame)
 
 
 def dividir(particiones: list[list], dataFrame: pd.DataFrame) -> tuple[bool, list[list]]:
@@ -146,7 +146,7 @@ def dividir(particiones: list[list], dataFrame: pd.DataFrame) -> tuple[bool, lis
     return (True, particiones)
 
 
-def getMinDF(particiones: list[list], dataFrame: pd.DataFrame) -> pd.DataFrame:
+def get_min_DF(particiones: list[list], dataFrame: pd.DataFrame) -> pd.DataFrame:
     dataFrameF = pd.DataFrame(columns=dataFrame.columns)
     for p in particiones:
         estado = p[0]
