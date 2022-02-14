@@ -1,4 +1,3 @@
-from typing import List
 import pandas as pd
 
 from comunes.model.automata import Automata
@@ -51,20 +50,48 @@ def get_estado_inicial(df: pd.DataFrame, estado_inicial: str = "") -> str:
                 return l
 
 
-def eliminar_extraños(dataFrame: pd.DataFrame) -> pd.DataFrame:
+def get_serie(estado: str, dataFrame: pd.DataFrame) -> pd.Series:
+    if estado in dataFrame.index:
+        lista = dataFrame.loc[estado].to_list()
+    else:
+        estados_spl = estado.split(",")
+        lista = []
+        for input in dataFrame.columns[:-1]:
+            valores = []
+            r = '0'
+            for est_spl in estados_spl:
+                if not est_spl in valores:
+                    new_v = dataFrame[input][est_spl]
+                    if not new_v in valores:
+                        valores.append(new_v)
+                if dataFrame['R'][est_spl] == '1':
+                    r = '1'
+            valor = ",".join(valores)
+            lista.append(valor)
+        lista.append(r)
+    return pd.Series(lista, index=dataFrame.columns, name=estado)
+
+
+def hacer_deterministico_eliminar_extranos(dataFrame: pd.DataFrame) -> pd.DataFrame:
     estado_inicial = get_estado_inicial(dataFrame)
     estados = [estado_inicial]
     dataFrame1 = pd.DataFrame(columns=dataFrame.columns)
-
     while(len(estados) > 0):
         estado = estados.pop(0)
-        a_series = pd.Series(dataFrame.loc[estado].to_list(
-        ), index=dataFrame.columns, name=estado)
+        a_series = get_serie(estado, dataFrame)
         dataFrame1 = dataFrame1.append(a_series)
         for n_estado in a_series[:-1]:
             if not n_estado in dataFrame1.index and not n_estado in estados:
                 estados.append(n_estado)
-    return dataFrame1
+    df = dataFrame1.applymap(limpiar)
+    indexes = dataFrame1.index.tolist()
+    new_indexes = [x.replace(',', '') for x in indexes]
+    df = df.set_axis(new_indexes, axis='index')
+    return df
+
+
+def limpiar(x: str):
+    return x.replace(',', '')
 
 
 def agrupar_semejantes(dataFrame: pd.DataFrame) -> pd.DataFrame:

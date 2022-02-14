@@ -3,7 +3,7 @@ import logging
 
 import azure.functions as func
 from tabulate import tabulate
-from comunes.services.automata_service import agrupar_semejantes, eliminar_extraños, get_automata, get_dataFrame_from_automata
+from comunes.services.automata_service import agrupar_semejantes, get_automata, get_dataFrame_from_automata, hacer_deterministico_eliminar_extranos
 
 from comunes.utils.validations import validate_automata
 
@@ -16,16 +16,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if not v["status"]:
         return func.HttpResponse(v["message"], status_code=400)
 
-    if automata['type'] == 1:
-        return func.HttpResponse("Only support 'automata deterministico'", status_code=400)
-
+    
     df = get_dataFrame_from_automata(automata)
+    logging.info("Incial:")
     logging.info(tabulate(df, headers='keys', tablefmt='psql'))
 
-    df = eliminar_extraños(df)
+    df = hacer_deterministico_eliminar_extranos(df)
+    logging.info("Det sin extraños:")
+    logging.info(tabulate(df, headers='keys', tablefmt='psql'))
 
     df = agrupar_semejantes(df)
-
+    logging.info("Simplificado:")
     logging.info(tabulate(df, headers='keys', tablefmt='psql'))
 
     return get_automata(df).to_JSON()
